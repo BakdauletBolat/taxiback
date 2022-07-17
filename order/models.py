@@ -1,5 +1,12 @@
 from django.db import models
 
+
+
+class TypeOrder(models.Model):
+
+    name = models.CharField(max_length=255)
+
+
 class Order(models.Model):
 
     from_city = models.ForeignKey('regions.City',on_delete=models.CASCADE,related_name='orders_from')
@@ -11,3 +18,6 @@ class Order(models.Model):
     date_time = models.DateTimeField()
     user = models.ForeignKey('users.Profile',on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
+    type_order = models.ForeignKey(TypeOrder,on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
