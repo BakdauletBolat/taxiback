@@ -4,15 +4,19 @@ from users.managers import CustomUserManager
 from django.utils import timezone
 
 
-class UserType(models.Model):
+class TypeUser(models.Model):
 
     name = models.CharField(max_length=255)
+
+
+    def __str__(self) -> str:
+        return f"{self.id}: {self.name}"
 
 
 class Profile(AbstractUser):
     email = models.EmailField('email address', unique=True,null=True,blank=True)
     phone = models.CharField('Phone',unique=True,max_length=255)
-    user_type = models.ForeignKey(UserType,on_delete=models.CASCADE,null=True,blank=True)
+    type_user = models.ForeignKey(TypeUser,on_delete=models.CASCADE,null=True,blank=True)
     date_joined = models.DateTimeField(default=timezone.now)
     city = models.ForeignKey('regions.City',on_delete=models.CASCADE,related_name='users',null=True,blank=True)
     birthday = models.DateTimeField(null=True,blank=True)
