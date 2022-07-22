@@ -7,6 +7,10 @@ class Region(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 
+    def __str__(self) -> str:
+        return f"{self.id}: {self.name}"
+
+
 class City(models.Model):
 
     name = models.CharField(max_length=255)
@@ -14,3 +18,7 @@ class City(models.Model):
     region = models.ForeignKey(Region,on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+    def __str__(self) -> str:
+        return f"{self.id}: {self.name} - {self.region.name}"
