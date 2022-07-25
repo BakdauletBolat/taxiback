@@ -45,6 +45,9 @@ class ProfileSerializer(serializers.ModelSerializer):
     profile_info = ProfileInfoSerializer(read_only=True)
     user_document = RequestDriverSerializer(read_only=True)
 
+    
+    
+
     class Meta:
 
         fields = ('id','is_driver','phone','driver_can_view_order_date','type_user','user_document','profile_info')

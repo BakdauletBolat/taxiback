@@ -1,0 +1,7 @@
+version: '3'
+services:
+  docs:
+    build: .
+    container_name: docs
+    ports:
+    - "82:80"

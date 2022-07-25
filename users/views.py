@@ -73,6 +73,7 @@ class VerifyUserView(APIView):
                         data = get_tokens_for_user(user)
                     return Response(data)
                 except Exception as e:
+                    print(e)
                     return Response({'details':'error'},status=status.HTTP_422_UNPROCESSABLE_ENTITY)
             else:
                 return Response({'details':'error'},status=status.HTTP_422_UNPROCESSABLE_ENTITY)
@@ -94,7 +95,7 @@ class RequestDriverView(APIView):
                 user.status = UserStatus.REQUESTED_TO_DRIVER.value
                 user.save()
             except IntegrityError as e:
-                return Response({'details':str(e)},status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+                return Response({'details':'Документы уже отправлены ждите результатов'},status=status.HTTP_422_UNPROCESSABLE_ENTITY)
             
             except Exception as e:
                 return Response({'details':str(e)},status=status.HTTP_500_INTERNAL_SERVER_ERROR)

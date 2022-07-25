@@ -5,13 +5,16 @@ from rest_framework.response import Response
 from order.models import Order
 from order.serializers import OrderCreateSerializer, OrderSerializer
 from rest_framework.permissions import IsAuthenticated
-
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class OrderListView(ListAPIView):
 
     serializer_class = OrderSerializer
-    queryset = Order.objects.all()
+    queryset = Order.objects.all().order_by('-id')
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['type_order','date_time']
+
 
 class OrderCreateView(APIView):
 
