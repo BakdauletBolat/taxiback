@@ -67,16 +67,15 @@ class VerifyUserView(APIView):
                     minutes = difference.total_seconds() / 60
 
                     if minutes > 5:   
-                        return Response({'details':'time'},status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+                        return Response({'details':'Время кода истекло'},status=status.HTTP_422_UNPROCESSABLE_ENTITY)
                     else:
                         user = Profile.objects.get(phone=serializer.validated_data['phone_number'])
                         data = get_tokens_for_user(user)
                     return Response(data)
                 except Exception as e:
-                    print(e)
-                    return Response({'details':'error'},status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+                    return Response({'details':'Не правильный код, пожалуйста попробуйте еще'},status=status.HTTP_422_UNPROCESSABLE_ENTITY)
             else:
-                return Response({'details':'error'},status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+                return Response({'details':'Не правильный код, пожалуйста попробуйте еще'},status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 
 

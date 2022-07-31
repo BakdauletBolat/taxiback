@@ -6,6 +6,9 @@ from order.models import Order
 from order.serializers import OrderCreateSerializer, OrderSerializer
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
+import django_filters
+
+
 
 
 class OrderListView(ListAPIView):
@@ -13,7 +16,13 @@ class OrderListView(ListAPIView):
     serializer_class = OrderSerializer
     queryset = Order.objects.all().order_by('-id')
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['type_order','date_time']
+    filterset_fields = ['type_order','from_city_id','to_city_id']
+
+    def get_queryset(self):
+        date = self.request.query_params.get('date_time',None)
+        if date is None:
+            return super().get_queryset()
+        return super().get_queryset().filter(date_time__date = date)
 
 
 class OrderCreateView(APIView):

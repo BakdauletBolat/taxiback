@@ -17,7 +17,7 @@ class UserDocumentsTabularInline(admin.StackedInline):
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('phone','status','is_driver','type_user')
     list_editable = ('status',)
-    fields = ('phone','status','is_driver','type_user')
+    fields = ('phone','status','is_driver','type_user','driver_can_view_order_date')
     inlines = (ProfileInfoTabularInline,UserDocumentsTabularInline)
 
 admin.site.register(Profile,ProfileAdmin)
