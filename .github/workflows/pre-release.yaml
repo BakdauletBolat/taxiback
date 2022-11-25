@@ -31,7 +31,7 @@ jobs:
             cd taxiback
             git pull
             sudo docker-compose up -d --build
-            sudo docker-compose exec web python manage.py collectstatic --no-input
-            sudo docker-compose exec web python manage.py migrate --no-input
-            sudo docker-compose exec web python manage.py create_seed
+            sudo docker-compose exec -t web python manage.py collectstatic --no-input
+            sudo docker-compose exec -t web python manage.py migrate --no-input
+            sudo docker-compose exec -t web python manage.py create_seed
             
