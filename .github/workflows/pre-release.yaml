@@ -1,5 +1,5 @@
 name: Taxi Back Pre-Release
-run-name: ${{ github.actor }} building and deploying 🚀
+run-name: ${{ github.actor }} building and deploying  🚀
 on:
   push:
     branches: ['release']
