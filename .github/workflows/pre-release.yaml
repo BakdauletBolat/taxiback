@@ -30,4 +30,4 @@ jobs:
           script: |
             cd taxiback
             git pull
-            docker-compose up -d --build
+            sudo docker-compose up -d --build
