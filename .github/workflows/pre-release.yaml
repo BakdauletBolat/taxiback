@@ -23,11 +23,15 @@ jobs:
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
         with:
-          host: "195.49.215.203"
-          username: "ubuntu"
-          password: "esr3Pcafhq(p"
+          host: ${{secrets.HOST}}
+          username: ${{secrets.USERNAME}}
+          password: ${{secrets.PASSWORD}} "esr3Pcafhq(p"
           port: "22"
           script: |
             cd taxiback
             git pull
             sudo docker-compose up -d --build
+            sudo docker-compose exec web python manage.py collectstatic --no-input
+            sudo docker-compose exec web python manage.py migrate --no-input
+            sudo docker-compose exec web python manage.py create_seed
+            
