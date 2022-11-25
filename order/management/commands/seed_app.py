@@ -8,7 +8,6 @@ import csv
 class Command(BaseCommand):
     help = 'Create Seed'
 
-
     def create_regions(self):
         with open("region.csv", encoding='utf-8') as r_file:
             file_reader = csv.reader(r_file, delimiter=",")
