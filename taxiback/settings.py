@@ -148,4 +148,6 @@ REST_FRAMEWORK = {
 
 exception_classes = []
 
+CSRF_TRUSTED_ORIGINS = ['http://195.49.215.203:9000']
+
 DATABASE_ROUTERS = ['django_telemetry.routers.DatabaseForTelemetry']
