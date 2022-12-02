@@ -1,5 +1,5 @@
 db.sqlite3
-db.telemetry.sqlite3
+
 cars.csv
 staticfiles
 media
