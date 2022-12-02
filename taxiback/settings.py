@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_filters',
+<<<<<<< HEAD
     'rest_framework_simplejwt',
     'rest_framework',
     'django_telemetry',
@@ -29,6 +30,14 @@ INSTALLED_APPS = [
     'apps.order',
     'apps.order.access',
     'apps.regions',
+=======
+    'users.apps.UsersConfig',
+    'order',
+    'regions',
+    'rest_framework_simplejwt',
+    'rest_framework',
+    'django_telemetry',
+>>>>>>> origin/release
 ]
 
 MIDDLEWARE = [
@@ -156,5 +165,8 @@ exception_classes = []
 CSRF_TRUSTED_ORIGINS = ['http://195.49.215.203:9000']
 
 DATABASE_ROUTERS = ['django_telemetry.routers.DatabaseForTelemetry']
+<<<<<<< HEAD
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10242880
+=======
+>>>>>>> origin/release

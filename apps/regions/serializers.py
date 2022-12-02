@@ -1,5 +1,12 @@
+<<<<<<< HEAD:apps/regions/serializers.py
+=======
+import imp
+from pyexpat import model
+
+>>>>>>> origin/release:regions/serializers.py
 from rest_framework import serializers
 from apps.regions.models import City, Region
+
 
 
 class RegionSerializer(serializers.ModelSerializer):
