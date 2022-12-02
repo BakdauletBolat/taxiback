@@ -18,12 +18,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_filters',
-    'users.apps.UsersConfig',
-    'order',
-    'regions',
     'rest_framework_simplejwt',
     'rest_framework',
     'django_telemetry',
+    'apps.users.apps.UsersConfig',
+    'apps.users.usercode',
+    'apps.car',
+    'apps.message',
+    'apps.users.userdocument',
+    'apps.order',
+    'apps.order.access',
+    'apps.regions',
 ]
 
 MIDDLEWARE = [
@@ -123,7 +128,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'users.Profile'
+AUTH_USER_MODEL = 'users.User'
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=5),
@@ -151,3 +156,5 @@ exception_classes = []
 CSRF_TRUSTED_ORIGINS = ['http://195.49.215.203:9000']
 
 DATABASE_ROUTERS = ['django_telemetry.routers.DatabaseForTelemetry']
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10242880

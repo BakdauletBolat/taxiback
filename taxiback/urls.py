@@ -7,9 +7,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('telemetry/', include('django_telemetry.urls')),
     path('api/', include([
-        path('users/', include('users.urls')),
-        path('order/', include('order.urls')),
-        path('regions/', include('regions.urls'))
+        path('users/', include('apps.users.urls')),
+        path('order/', include('apps.order.urls')),
+        path('regions/', include('apps.regions.urls'))
     ]))
 
 ]
