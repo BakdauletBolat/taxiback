@@ -1,10 +1,5 @@
-<<<<<<< HEAD:apps/order/actions.py
 from apps.order.serializers import OrderCreateSerializer
 from apps.order.subactions import CreateDriverOrderSubAction, CreatePassengerOrderSubAction
-=======
-from order.serializers import OrderCreateSerializer
-from order.subactions import CreateDriverOrderSubAction, CreatePassengerOrderSubAction
->>>>>>> origin/release:order/actions.py
 
 
 class OrderCreateAction:
