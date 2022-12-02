@@ -26,4 +26,4 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.import_cars()
-        print('Imported')
+        self.stdout.write(self.style.SUCCESS('Импортировано машины'))
