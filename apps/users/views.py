@@ -156,7 +156,7 @@ class UserPaymentsListView(APIView):
     def get(self, request, *args, **kwargs):
         try:
             return Response(
-                data=PaymentSerializer(self.queryset.filter(user=request.user).order_by('-id'), many=True).data,
+                data=PaymentSerializer(self.queryset.filter(user=request.user).order_by('-id')[:5], many=True).data,
                 status=200)
         except Exception as e:
             return Response(data=str(e), status=500)

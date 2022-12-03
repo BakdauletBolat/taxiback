@@ -2,7 +2,7 @@ name: Taxi Back Pre-Release
 run-name: ${{ github.actor }} building and deploying  🚀
 on:
   push:
-    branches: ['release']
+    branches: ['master']
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
