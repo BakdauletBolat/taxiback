@@ -15,10 +15,10 @@ from apps.users.usercode.enums import StatusUserCode
 from django.shortcuts import get_object_or_404
 
 
-def get_tokens_for_user(user):
+def get_tokens_for_user(user, request):
     refresh = RefreshToken.for_user(user)
     return {
-        'user': UserSerializer(user).data,
+        'user': UserSerializer(user, context={'request': request}).data,
         'refresh': str(refresh),
         'access': str(refresh.access_token),
     }
@@ -82,7 +82,7 @@ class VerifyUserView(APIView):
                                                       otp=otp)
 
             if code_status == StatusUserCode.SUCCESS:
-                data = get_tokens_for_user(user)
+                data = get_tokens_for_user(user, request)
                 return Response(data)
             elif code_status == StatusUserCode.TIMEOUT:
                 return Response({'details': 'Время кода истекло'}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
