@@ -9,6 +9,7 @@ def create(sender, instance: Payment, **kwargs):
     request = FireBaseRequest()
     if instance.is_confirmed:
         try:
-            request.send(instance.user.firebase_token, f'#{instance.gen_id} Успешно принят', body=f'{instance.coin} тг')
+            res = request.send(instance.user.firebase_token, f'#{instance.gen_id} Успешно принят', body=f'{instance.coin} тг')
+            print(res)
         except Exception as e:
             print(e)
