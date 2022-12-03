@@ -12,7 +12,7 @@ class MessageType(models.Model):
 class Message(models.Model):
     title = models.CharField(max_length=255)
     text = models.TextField()
-    type = models.ForeignKey(MessageType, on_delete=models.CASCADE)
+    type = models.ForeignKey(MessageType, on_delete=models.CASCADE, related_name='messages')
     is_read = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

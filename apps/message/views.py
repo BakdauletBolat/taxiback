@@ -1,6 +1,6 @@
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
-from apps.message.models import Message
+from apps.message.models import MessageType, Message
 from apps.message.serializers import MessageSerializer
 from apps.order.views import StandardResultsSetPagination
 
