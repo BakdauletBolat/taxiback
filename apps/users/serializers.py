@@ -71,4 +71,4 @@ class PaymentSerializer(serializers.ModelSerializer):
 
 class UserTypeChangeSerializer(serializers.Serializer):
     user_id = serializers.IntegerField()
-    edit_user_type_id = serializers.IntegerField()
+    change_user_type_id = serializers.IntegerField()
