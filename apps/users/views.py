@@ -1,7 +1,8 @@
+from rest_framework.exceptions import APIException
 from rest_framework.views import APIView
 from apps.users.models import Payment, User, UserInfo
 from apps.users.serializers import CreatePaymentSerializer, PaymentSerializer, UserInfoSerializer, UserSerializer, \
-    TokenLoginSerializer, VerifyUserSerializer
+    TokenLoginSerializer, VerifyUserSerializer, UserTypeChangeSerializer
 from rest_framework.response import Response
 import random
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -160,3 +161,22 @@ class UserPaymentsListView(APIView):
                 status=200)
         except Exception as e:
             return Response(data=str(e), status=500)
+
+
+class UserTypeChangeView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    @staticmethod
+    def post(request):
+        serializer = UserTypeChangeSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        user = get_object_or_404(User, id=serializer.validated_data['user_id'])
+
+        if not user.is_driver:
+            raise APIException('Вы не водитель')
+
+        user.type_user_id = serializer.validated_data['edit_user_type_id']
+        user.save()
+
+        return Response(data=UserSerializer(user).data, status=200)

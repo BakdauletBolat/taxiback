@@ -67,3 +67,8 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = ('id', 'gen_id', 'coin', 'user_id', 'created_at', 'is_confirmed')
+
+
+class UserTypeChangeSerializer(serializers.Serializer):
+    user_id = serializers.IntegerField()
+    edit_user_type_id = serializers.IntegerField()
