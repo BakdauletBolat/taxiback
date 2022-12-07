@@ -176,7 +176,7 @@ class UserTypeChangeView(APIView):
         if not user.is_driver:
             raise APIException('Вы не водитель')
 
-        user.type_user_id = serializer.validated_data['edit_user_type_id']
+        user.type_user_id = serializer.validated_data['change_user_type_id']
         user.save()
 
         return Response(data=UserSerializer(user).data, status=200)
