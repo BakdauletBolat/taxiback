@@ -1,6 +1,8 @@
 from pathlib import Path
 from datetime import timedelta
 import os
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,8 +22,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework_simplejwt',
     'rest_framework',
-    'django_telemetry',
-    'apps.users',
+    'apps.users.apps.UsersConfig',
     'apps.users.usercode',
     'apps.users.userdocument',
     'apps.car',
@@ -35,7 +36,6 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django_telemetry.middleware.WebTelemetryMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -150,7 +150,6 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    'EXCEPTION_HANDLER': 'django_telemetry.handlers.telemetry_exception_handler',
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 
 }
@@ -159,6 +158,16 @@ exception_classes = []
 
 CSRF_TRUSTED_ORIGINS = ['http://195.49.215.203:9000']
 
-DATABASE_ROUTERS = ['django_telemetry.routers.DatabaseForTelemetry']
-
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10242880
+
+sentry_sdk.init(
+    dsn="https://e154e7f2514c46de9c6415fea0bad88d@o4504264844115968.ingest.sentry.io/4504264848572416",
+    integrations=[
+        DjangoIntegration(),
+    ],
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0,
+    send_default_pii=True
+)

@@ -6,4 +6,5 @@ class UsersConfig(AppConfig):
     name = 'apps.users'
 
     def ready(self) -> None:
+        from . import signals
         return super().ready()

@@ -3,3 +3,4 @@ db.telemetry.sqlite3
 cars.csv
 staticfiles
 media
+media/
