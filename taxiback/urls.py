@@ -3,8 +3,11 @@ from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
 
+from taxiback.views import render_privacy_view
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('privacy/', render_privacy_view),
     path('api/', include([
         path('users/', include('apps.users.urls')),
         path('order/', include('apps.order.urls')),
