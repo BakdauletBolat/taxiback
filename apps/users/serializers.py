@@ -1,6 +1,9 @@
 import re
 
+from django.utils import timezone
 from rest_framework import serializers
+
+from apps.car.serializers import CarInfoSerializer
 from apps.order.tasks import GetExceptedCoinsFromUser, GetAvailableCoinsFromUser
 from apps.users.models import Payment, User
 
@@ -25,6 +28,7 @@ class RequestDriverSerializer(serializers.Serializer):
     passport_photo_back = serializers.FileField()
     car_passport_front = serializers.FileField()
     car_passport_back = serializers.FileField()
+    car = CarInfoSerializer()
 
 
 class UserInfoSerializer(serializers.Serializer):
@@ -41,6 +45,10 @@ class UserSerializer(serializers.ModelSerializer):
     user_document = RequestDriverSerializer(read_only=True)
     coins = serializers.SerializerMethodField('get_coins')
     coins_expected = serializers.SerializerMethodField('get_coins_expected')
+    access_orders_ids = serializers.SerializerMethodField('get_access_orders_ids')
+
+    def get_access_orders_ids(self, obj: User):
+        return obj.access_orders.filter(can_access_date__gte=timezone.now().date()).values_list('id', flat=True)
 
     @staticmethod
     def get_coins_expected(obj):
@@ -54,6 +62,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'is_driver', 'coins',
                   'coins_expected', 'phone',
                   'type_user', 'user_document',
+                  'access_orders_ids',
                   'user_info')
         model = User
 
