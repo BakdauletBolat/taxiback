@@ -48,7 +48,7 @@ class UserSerializer(serializers.ModelSerializer):
     access_orders_ids = serializers.SerializerMethodField('get_access_orders_ids')
 
     def get_access_orders_ids(self, obj: User):
-        return obj.access_orders.filter(can_access_date__gte=timezone.now().date()).values_list('id', flat=True)
+        return obj.access_orders.filter(can_access_date__gte=timezone.now().date()).values_list('access_id', flat=True)
 
     @staticmethod
     def get_coins_expected(obj):
