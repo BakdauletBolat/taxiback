@@ -1,0 +1,59 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="form-background"
+         style="height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center">
+        <div class="mb-3 d-flex w-100" style="justify-content: center; align-items: center; gap: 20px">
+            <img class="img-thumbnail" style="max-width: 100px; max-height: 100px; align-self: baseline"
+             src="{% static 'image/logo.png' %}" alt="лого">
+{#            <h4 style="color:white; text-align: center">Админстрация <br> Za-Kaz</h4>#}
+        </div>
+        <form class="max-width:500px;" id='form' hx-target="this" hx-encoding='multipart/form-data'
+              hx-post='/feedback/save/'>
+            {% csrf_token %}
+            <progress id='progress' style="display: none; padding: 20px;width: 100%;" value='25' max='100'></progress>
+            <div class="mb-3 w-100">
+                <label for="exampleFormControlInput1" class="form-label form-label-white">Введите почту для
+                    связи</label>
+                <input required type="email" name="email" class="form-control w-100" id="exampleFormControlInput1"
+                       placeholder="Введите почту">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label form-label-white">Причина</label>
+                <textarea name="text" required class="form-control" id="exampleFormControlTextarea1"
+                          rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="formFileLg" class="form-label form-label-white">Скриншот* или другие причины</label>
+                <input name="image" class="form-control form-control-lg" id="formFileLg" type="file">
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-light w-100">Отправить</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+{% block style %}
+    .form-background{
+    padding: 20px;
+    background-image: radial-gradient( circle 610px at 5.2% 51.6%,  rgba(5,8,114,1) 0%, rgba(7,3,53,1) 97.5% );
+    }
+    .form-label-white{
+    color:white;
+    }
+{% endblock %}
+{% block script %}
+    <script>
+        htmx.on('#form', 'htmx:xhr:loadstart', function (evt) {
+            htmx.find('#progress').style.display = 'block';
+        });
+        htmx.on('#form', 'htmx:xhr:progress', function (evt) {
+            htmx.find('#progress').setAttribute('value', evt.detail.loaded / evt.detail.total * 100)
+        });
+        htmx.on('#message', 'htmx:afterSwap', function (evt) {
+            htmx.find('#progress').style.display = 'none';
+            console.log('end');
+        });
+
+    </script>
+{% endblock %}

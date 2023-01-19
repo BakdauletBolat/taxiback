@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'apps.order',
     'apps.order.access',
     'apps.regions',
+    'form'
 ]
 
 MIDDLEWARE = [
@@ -171,3 +172,5 @@ sentry_sdk.init(
     traces_sample_rate=1.0,
     send_default_pii=True
 )
+
+APPEND_SLASH = False

@@ -8,6 +8,7 @@ from taxiback.views import render_privacy_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('privacy/', render_privacy_view),
+    path('feedback/', include('form.urls')),
     path('api/', include([
         path('users/', include('apps.users.urls')),
         path('order/', include('apps.order.urls')),
