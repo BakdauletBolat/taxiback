@@ -21,7 +21,7 @@ class GetStatusUserCodeAction:
         otp_object = UserCode.objects.filter(user=user,
                                              otp=otp).order_by('created_at').last()
 
-        if user.phone == '7777777777' and otp.otp == 7899:
+        if user.phone == '77777777777' and otp.otp == 7899:
             return StatusUserCode.SUCCESS
 
         if otp_object is not None:
