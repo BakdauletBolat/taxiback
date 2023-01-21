@@ -17,11 +17,11 @@ class CreateUserCodeAction:
 class GetStatusUserCodeAction:
 
     @staticmethod
-    def run(user: User, otp: UserCode):
+    def run(user: User, otp: str):
         otp_object = UserCode.objects.filter(user=user,
                                              otp=otp).order_by('created_at').last()
 
-        if user.phone == '77777777777' and otp.otp == 7899:
+        if user.phone == '77777777777' and otp == '7899':
             return StatusUserCode.SUCCESS
 
         if otp_object is not None:
