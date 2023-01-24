@@ -179,4 +179,4 @@ sentry_sdk.init(
     send_default_pii=True
 )
 
-APPEND_SLASH = False
+APPEND_SLASH = True
