@@ -19,12 +19,12 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./.env.prod.db
-  telemetry_db:
+  db-drf-api-logger:
     image: postgres:13.0-alpine
     volumes:
       - tel_postgres_data:/var/lib/postgresql/data/
     env_file:
-      - ./.telemetry.env
+      - ./.env.prod.drf-api
   nginx:
     build: ./nginx
     volumes:
