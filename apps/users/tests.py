@@ -14,7 +14,7 @@ class UserTests(APITestCase):
     def test_register_account(self):
         url = reverse('sign-in')
         data = {'phone_number': '77059943864', 'test': True}
-        response = self.client.post(url, data, format='json')
+        response = post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(User.objects.count(), 1)
         self.assertEqual(User.objects.get().phone, '77059943864')
@@ -22,5 +22,5 @@ class UserTests(APITestCase):
     def test_register_account_not_valid(self):
         url = reverse('sign-in')
         data = {'phone_number': '770599438646ңң', 'test': True}
-        response = self.client.post(url, data, format='json')
+        response = post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

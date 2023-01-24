@@ -29,6 +29,15 @@ class AuthMeView(APIView):
     permission_classes = (IsAuthenticated,)
 
     @staticmethod
+    @transaction.atomic
+    def delete(request):
+        user = request.user
+        user.delete()
+        return Response(data={
+            'status': 'deleted'
+        }, status=status.HTTP_200_OK)
+
+    @staticmethod
     def get(request, *args, **extra_fields):
         user = request.user
         token = request.GET.get('token', None)
@@ -44,6 +53,7 @@ class AuthMeView(APIView):
 class RegisterUserView(APIView):
 
     @staticmethod
+    @transaction.atomic
     def post(request, **kwargs):
         serializer = TokenLoginSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -54,6 +64,7 @@ class RegisterUserView(APIView):
                     user.set_password(f"{random.randint(100000, 999999)}")
                     user.type_user_id = 2
                     user.save()
+
                 otp_obj = CreateUserCodeAction.run(user=user)
                 if not request.data.get('test', False):
                     SendSmsAction.run(phone_number=user.phone, code=otp_obj.otp)
@@ -71,6 +82,7 @@ class ListUser(ListAPIView):
 class VerifyUserView(APIView):
 
     @staticmethod
+    @transaction.atomic
     def post(request, **kwargs):
         serializer = VerifyUserSerializer(data=request.data)
 
@@ -100,7 +112,9 @@ class UpdateUserInfoView(APIView):
     permission_classes = (IsAuthenticated,)
 
     @staticmethod
+    @transaction.atomic
     def patch(request):
+
         serializer = UserInfoSerializer(data=request.data)
 
         serializer.is_valid(raise_exception=True)
@@ -131,23 +145,14 @@ class PaymentCreateView(APIView):
     permission_classes = (IsAuthenticated,)
 
     @staticmethod
+    @transaction.atomic
     def post(request, *args, **kwargs):
-
         serializer = CreatePaymentSerializer(data=request.data)
-
         serializer.is_valid(raise_exception=True)
-
-        try:
-            with transaction.atomic():
-
-                p_object = Payment.objects.create(**serializer.validated_data)
-                p_object.gen_id = 1000 + int(p_object.id)
-                p_object.save()
-
-            return Response(data=PaymentSerializer(p_object).data, status=201)
-
-        except Exception as e:
-            return Response(data=str(e), status=500)
+        p_object = Payment.objects.create(**serializer.validated_data)
+        p_object.gen_id = 1000 + int(p_object.id)
+        p_object.save()
+        return Response(data=PaymentSerializer(p_object).data, status=201)
 
 
 class UserPaymentsListView(APIView):

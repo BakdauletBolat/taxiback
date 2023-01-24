@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework_simplejwt',
     'rest_framework',
+    'drf_api_logger',
     'apps.users.apps.UsersConfig',
     'apps.users.usercode',
     'apps.users.userdocument',
@@ -41,6 +42,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware',
 ]
 
 ROOT_URLCONF = 'taxiback.urls'
@@ -76,13 +78,13 @@ DATABASES = {
         "HOST": os.environ.get("SQL_HOST", "localhost"),
         "PORT": os.environ.get("SQL_PORT", "5432"),
     },
-    'django_telemetry': {
+    "drf-api-logger": {
         "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.environ.get("SQL_TEL_DATABASE", BASE_DIR / "db.sqlite3"),
-        "USER": os.environ.get("SQL_TEL_USER", "user"),
-        "PASSWORD": os.environ.get("SQL_TEL_PASSWORD", "password"),
-        "HOST": os.environ.get("SQL_TEL_HOST", "localhost"),
-        "PORT": os.environ.get("SQL_PORT", "5432"),
+        "NAME": os.environ.get("SQL_DATABASE_DRF", BASE_DIR / "db.drf-api-sqlite3"),
+        "USER": os.environ.get("SQL_USER_DRF", "user"),
+        "PASSWORD": os.environ.get("SQL_PASSWORD_DRF", "password"),
+        "HOST": os.environ.get("SQL_HOST_DRF", "localhost"),
+        "PORT": os.environ.get("SQL_PORT_DRF", "5432"),
     }
 }
 
@@ -160,6 +162,10 @@ exception_classes = []
 CSRF_TRUSTED_ORIGINS = ['http://195.49.215.203:9000']
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10242880
+
+DRF_API_LOGGER_DATABASE = True
+
+DRF_API_LOGGER_DEFAULT_DATABASE = 'drf-api-logger'
 
 sentry_sdk.init(
     dsn="https://e154e7f2514c46de9c6415fea0bad88d@o4504264844115968.ingest.sentry.io/4504264848572416",
