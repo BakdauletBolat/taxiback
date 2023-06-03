@@ -1,6 +1,7 @@
 from pathlib import Path
 from datetime import timedelta
 import os
+from pickle import APPEND
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
@@ -178,3 +179,5 @@ sentry_sdk.init(
     send_default_pii=True
 )
 
+
+APPEND_SLASH=False

@@ -1,3 +1,4 @@
+from typing import TYPE_CHECKING
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from apps.users.managers import CustomUserManager
@@ -16,6 +17,8 @@ class TypeUser(models.Model):
 
 
 class User(AbstractUser):
+    # if TYPE_CHECKING:
+    #     user_info: UserInfo
     USER_STATUS_CHOICES = (
         ('registered', 'registered'),
         ('requested_to_driver', 'requested_to_driver'),
@@ -29,6 +32,7 @@ class User(AbstractUser):
     date_joined = models.DateTimeField(default=timezone.now)
     status = models.CharField('Status', max_length=255, null=True, blank=True, choices=USER_STATUS_CHOICES,
                               default='registered')
+    
     username = None
     last_name = None
     first_name = None
@@ -57,5 +61,7 @@ class Payment(models.Model):
     coin = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='coins')
     created_at = models.DateTimeField(auto_now=True)
+    paid_at = models.DateTimeField(null=True,blank=True)
     is_confirmed = models.BooleanField(default=False)
+    payment_order_id = models.CharField(unique=True, max_length=50, null=True, blank=True)
     gen_id = models.CharField(unique=True, max_length=255, null=True, blank=True)

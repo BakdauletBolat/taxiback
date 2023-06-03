@@ -69,7 +69,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 class CreatePaymentSerializer(serializers.Serializer):
     coin = serializers.IntegerField()
-    user_id = serializers.IntegerField()
 
 
 class PaymentSerializer(serializers.ModelSerializer):

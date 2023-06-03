@@ -1,3 +1,5 @@
+from ctypes import py_object
+import datetime
 from rest_framework.exceptions import APIException
 from rest_framework.views import APIView
 from apps.users.models import Payment, User, UserInfo
@@ -10,10 +12,16 @@ from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from django.db import transaction
 from rest_framework import status
-from apps.users.actions import SendSmsAction
+from apps.users.actions import FreedomPay, SendSmsAction
+from sentry_sdk import capture_event
 from apps.users.usercode.actions import CreateUserCodeAction, GetStatusUserCodeAction
 from apps.users.usercode.enums import StatusUserCode
 from django.shortcuts import get_object_or_404
+from rest_framework import viewsets
+from rest_framework.decorators import action
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def get_tokens_for_user(user, request):
@@ -66,8 +74,10 @@ class RegisterUserView(APIView):
                     user.save()
 
                 otp_obj = CreateUserCodeAction.run(user=user)
-                if not request.data.get('test', False):
-                    SendSmsAction.run(phone_number=user.phone, code=otp_obj.otp)
+                capture_event(event={'user_id': user.id, 'type': 'user_register'})
+                
+                # if not request.data.get('test', False):
+                #     SendSmsAction.run(phone_number=user.phone, code=otp_obj.otp)
                 return Response({'status': 'success'}, status=200)
             except Exception as e:
                 return Response({'status': str(e)}, status=400)
@@ -141,18 +151,46 @@ class UpdateUserInfoView(APIView):
                         status=status.HTTP_200_OK)
 
 
-class PaymentCreateView(APIView):
-    permission_classes = (IsAuthenticated,)
+class PaymentViewSet(viewsets.ModelViewSet):
+    # permission_classes = (IsAuthenticated,)
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
 
-    @staticmethod
     @transaction.atomic
-    def post(request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         serializer = CreatePaymentSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        serializer.validated_data.update({'user_id': request.user.id})
         p_object = Payment.objects.create(**serializer.validated_data)
         p_object.gen_id = 1000 + int(p_object.id)
         p_object.save()
-        return Response(data=PaymentSerializer(p_object).data, status=201)
+        freedom_pay = FreedomPay()
+        freedom_pay.prepare_data(request.user, p_object)
+        text = freedom_pay.create_payment()
+        return Response(data={'link': text, 'payment_order_id': p_object.id}, status=200)
+    
+    @transaction.atomic
+    def partial_update(self, request, pk, *args, **kwargs):
+        p_object = get_object_or_404(Payment, gen_id=pk)
+        freedom_pay = FreedomPay()
+        freedom_pay.prepare_data(request.user, p_object)
+        text = freedom_pay.create_payment()
+        return Response(data={'link': text, 'payment_order_id': p_object.gen_id}, status=200)
+    
+    
+    @action(detail=False, methods=['POST'])
+    def result(self, request):
+        if int(request.data['pg_result']) == 1:
+            payment = Payment.objects.get(gen_id=request.data['pg_order_id'])
+            payment.is_confirmed = True
+            payment.payment_order_id = request.data['pg_payment_id']
+            payment.paid_at = request.data['pg_payment_date']
+            payment.save()
+        else:
+            pass
+            # _send_telegram_error_pay(payment)
+        return Response(data={"status": 'success'}, status=201)
+    
 
 
 class UserPaymentsListView(APIView):
