@@ -54,7 +54,7 @@ class AuthMeView(APIView):
             user.firebase_token = token
             user.save()
 
-        return Response(data=UserSerializer(request.user, context={'request': request}).data,
+        return Response(data=UserSerializer(user, context={'request': request}).data,
                         status=status.HTTP_200_OK)
 
 
@@ -75,9 +75,8 @@ class RegisterUserView(APIView):
 
                 otp_obj = CreateUserCodeAction.run(user=user)
                 capture_event(event={'user_id': user.id, 'type': 'user_register'})
-                
-                # if not request.data.get('test', False):
-                #     SendSmsAction.run(phone_number=user.phone, code=otp_obj.otp)
+                if not request.data.get('test', False):
+                    SendSmsAction.run(phone_number=user.phone, code=otp_obj.otp)
                 return Response({'status': 'success'}, status=200)
             except Exception as e:
                 return Response({'status': str(e)}, status=400)

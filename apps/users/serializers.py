@@ -28,7 +28,7 @@ class RequestDriverSerializer(serializers.Serializer):
     passport_photo_back = serializers.FileField()
     car_passport_front = serializers.FileField()
     car_passport_back = serializers.FileField()
-    car = CarInfoSerializer()
+    car = CarInfoSerializer(required=False)
 
 
 class UserInfoSerializer(serializers.Serializer):
