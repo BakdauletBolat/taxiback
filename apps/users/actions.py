@@ -20,7 +20,7 @@ class FreedomPay:
         self.merchant_id = '544010'
         self.secret_key = os.getenv('SECRET_KEY_FREEDOM_PAY', 'HbotreoJWjDyuWGB')
         self.data = {}
-        self.call_back_url = os.getenv('SITE_URL','http://185.4.180.190')
+        self.call_back_url = os.getenv('SITE_URL','http://213.171.4.132')
         self.result_url = self.call_back_url+'/api/users/payment/result/'
 
     def prepare_data(self, user:User, payment: Payment) -> None:
