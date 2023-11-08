@@ -188,6 +188,8 @@ class PaymentViewSet(viewsets.ModelViewSet):
         else:
             pass
             # _send_telegram_error_pay(payment)
+        
+        print(request.data)
         return Response(data={"status": 'success'}, status=201)
     
 
