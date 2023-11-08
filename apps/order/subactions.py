@@ -52,7 +52,11 @@ class CreateDriverOrderSubAction:
                     except Exception as e:
                         logging.exception(e)
                 else:
-                    raise NotEnoughBalanceException()
+                    raise NotEnoughBalanceException(errors_data={
+                        'to_city': access.to_city.name,
+                        'from_city': access.from_city.name,
+                        'coin': access.coin
+                    })
 
             return Order.objects.create(**data)
 

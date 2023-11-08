@@ -6,6 +6,6 @@ from django.urls import path
 
 
 urlpatterns = [
-    path('regions/', RegionListView.as_view()),
+    path('', RegionListView.as_view()),
     path('city/',CitiesListView.as_view()),
 ]
