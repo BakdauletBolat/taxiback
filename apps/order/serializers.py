@@ -19,11 +19,11 @@ class TypeOrderSerializer(serializers.ModelSerializer):
 
 class OrderCreateSerializer(serializers.Serializer):
     from_city_id = serializers.IntegerField()
-    from_address = serializers.CharField(allow_null=True, required=False)
+    from_address = serializers.CharField(allow_null=True, required=False, allow_blank=True)
     to_city_id = serializers.IntegerField()
-    to_address = serializers.CharField(allow_null=True, required=False)
+    to_address = serializers.CharField(allow_null=True, required=False, allow_blank=True)
     price = serializers.IntegerField()
-    comment = serializers.CharField(allow_null=True, required=False)
+    comment = serializers.CharField(allow_null=True, required=False, allow_blank=True)
     date_time = serializers.DateTimeField()
 
 
