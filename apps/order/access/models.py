@@ -17,7 +17,7 @@ class Access(models.Model):
 
 
 class AccessOrder(models.Model):
-    access = models.ForeignKey(Access, on_delete=models.CASCADE, related_name='access_orders')
+    access = models.ForeignKey(Access, on_delete=models.CASCADE, related_name='access_orders', null=True, blank=True)
     coin = models.IntegerField()
     can_access_date = models.DateField(null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='access_orders')

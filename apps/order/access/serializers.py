@@ -27,5 +27,5 @@ class GetAccessSerializer(serializers.Serializer):
 class AccessOrderSerializer(serializers.Serializer):
     coin = serializers.IntegerField()
     user_id = serializers.IntegerField()
-    access_id = serializers.IntegerField()
+    access_id = serializers.IntegerField(allow_null=True, required=False)
     can_access_date = serializers.DateField()
