@@ -38,3 +38,8 @@ class Order(models.Model):
 
 
 
+
+
+class DefaultSettings(models.Model):
+    default_coin = models.IntegerField("Цена по умолчанию для городов")
+    

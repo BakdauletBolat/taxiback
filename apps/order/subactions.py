@@ -2,7 +2,7 @@ import logging
 
 from apps.order.access.models import Access, AccessOrder
 from apps.order.access.serializers import AccessOrderSerializer
-from apps.order.models import Order
+from apps.order.models import DefaultSettings, Order
 from apps.order.tasks import GetAvailableCoinsFromUser
 from apps.users.models import User
 from datetime import date
@@ -59,6 +59,15 @@ class CreateDriverOrderSubAction:
                     })
 
             return Order.objects.create(**data)
-
         else:
-            raise NotFound('Не создана цены для в этих направлениях')
+            default_settings = DefaultSettings.objects.all().first()
+            try:
+                CreateAccessOrder.run(serializer=AccessOrderSerializer(
+                    AccessOrder(access_id=access.id,
+                                user_id=user.id,
+                                coin=default_settings.default_coin,
+                                can_access_date=today
+                                )))
+            except Exception as e:
+                logging.exception(e)
+            return Order.objects.create(**data)
