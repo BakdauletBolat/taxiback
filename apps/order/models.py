@@ -36,10 +36,6 @@ class Order(models.Model):
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
 
-
-
-
-
 class DefaultSettings(models.Model):
     default_coin = models.IntegerField("Цена по умолчанию для городов")
     
