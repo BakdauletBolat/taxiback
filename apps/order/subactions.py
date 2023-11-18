@@ -29,9 +29,9 @@ class CreateDriverOrderSubAction:
         access = Access.objects.filter(
             from_city_id=data["from_city_id"], to_city_id=data["to_city_id"]
         ).first()
-
+        user = User.objects.get(id=data["user_id"])
         if access is not None:
-            user = User.objects.get(id=data["user_id"])
+            
             access_orders = AccessOrder.objects.filter(
                 access_id=access.id, user=user
             ).order_by("can_access_date")
