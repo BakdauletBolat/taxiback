@@ -4,6 +4,7 @@ from apps.order.access.models import Access, AccessOrder
 from apps.order.access.serializers import AccessOrderSerializer
 from apps.order.models import DefaultSettings, Order
 from apps.order.tasks import GetAvailableCoinsFromUser
+from apps.regions.models import City
 from apps.users.models import User
 from datetime import date
 from rest_framework.exceptions import NotFound
@@ -33,6 +34,8 @@ class CreateDriverOrderSubAction:
         access = Access.objects.filter(
             from_city_id=data["from_city_id"], to_city_id=data["to_city_id"]
         ).first()
+        from_city = City.objects.get(id=data['from_city_id'])
+        to_city = City.objects.get(id=data['to_city_id'])
         user = User.objects.get(id=data["user_id"])
         sum_coin = GetAvailableCoinsFromUser.run(user)
         default_settings = DefaultSettings.objects.all().first()
@@ -43,9 +46,9 @@ class CreateDriverOrderSubAction:
         else:
             raise NotEnoughBalanceException(
                 errors_data={
-                    "to_city": access.to_city.name,
-                    "from_city": access.from_city.name,
-                    "coin": access.coin,
+                    "to_city": to_city.name,
+                    "from_city": from_city.name,
+                    "coin": access.coin if access is not None else default_settings.default_coin,
                 }
             )
 
