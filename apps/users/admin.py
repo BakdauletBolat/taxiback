@@ -31,7 +31,11 @@ class UserDocumentTabularInline(admin.StackedInline):
         'Свидетелесьтво о регистраций ТС',
         {
             'fields': [('preview_car_passport_front', 'preview_car_passport_back')]
-        })
+        }),
+        'Машина',
+        {
+            'fields': [('car')]
+        }
         ]
     readonly_fields = ('preview_passport_photo_front', 'preview_passport_photo_back', 'preview_car_passport_front', 'preview_car_passport_back')
     
