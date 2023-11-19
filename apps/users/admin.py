@@ -34,7 +34,7 @@ class UserDocumentTabularInline(admin.StackedInline):
         }),
         'Машина',
         {
-            'fields': [('car')]
+            'fields': [('car',)]
         }
         ]
     readonly_fields = ('preview_passport_photo_front', 'preview_passport_photo_back', 'preview_car_passport_front', 'preview_car_passport_back')
