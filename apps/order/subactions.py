@@ -18,42 +18,28 @@ class CreatePassengerOrderSubAction:
 
 class CreateAccessOrder:
     @staticmethod
-    def run(serializer: AccessOrderSerializer) -> AccessOrder:
+    def run(access: Access, user: User, coin:int) -> AccessOrder:
+        today = date.today()
+        access_order = AccessOrder(user_id=user.id,coin=coin,can_access_date=today)
+        if access is not None:
+            access_order.access_id = access.id
+        serializer = AccessOrderSerializer(access_order)
         return AccessOrder.objects.create(**serializer.data)
 
 
 class CreateDriverOrderSubAction:
     @staticmethod
     def run(data) -> Order:
-        today = date.today()
         access = Access.objects.filter(
             from_city_id=data["from_city_id"], to_city_id=data["to_city_id"]
         ).first()
         user = User.objects.get(id=data["user_id"])
         sum_coin = GetAvailableCoinsFromUser.run(user)
-        if sum_coin >= access.coin:
-            if access is not None:
-                CreateAccessOrder.run(
-                    serializer=AccessOrderSerializer(
-                        AccessOrder(
-                            access_id=access.id,
-                            user_id=user.id,
-                            coin=access.coin,
-                            can_access_date=today,
-                        )
-                    )
-                )
-            else:
-                default_settings = DefaultSettings.objects.all().first()
-                CreateAccessOrder.run(
-                    serializer=AccessOrderSerializer(
-                        AccessOrder(
-                            user_id=user.id,
-                            coin=default_settings.default_coin,
-                            can_access_date=today,
-                        )
-                    )
-                )
+        default_settings = DefaultSettings.objects.all().first()
+        if access is not None and sum_coin >= access.coin:
+            CreateAccessOrder.run(access=access, user=user, coin=access.coin)
+        elif default_settings is not None and sum_coin >= default_settings.default_coin:
+            CreateAccessOrder.run(access=access, user=user, coin=default_settings.default_coin)
         else:
             raise NotEnoughBalanceException(
                 errors_data={
