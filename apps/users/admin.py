@@ -3,10 +3,12 @@ from django import forms
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from apps.car.models import Car
+from apps.message.models import Message, MessageType
 from apps.users.actions import approve, discard
 from apps.users.models import Payment, User, UserInfo
 from apps.users.usercode.models import UserCode
 from apps.users.userdocument.models import UserDocument
+from taxiback.request import FireBaseRequest
 
 
 class UserInfoTabularInline(admin.StackedInline):
@@ -44,6 +46,15 @@ class UserDocumentTabularInline(admin.StackedInline):
     inlines = [CarInline]
 
 
+request = FireBaseRequest()
+
+def _send_message_firebase(user_id: int, title: str, body: str):
+    user = User.objects.get(id=user_id)
+    message_type = MessageType.objects.last()
+    Message.objects.create(user=user,title=title, text=body, type=message_type)
+    request.send(user.firebase_token,title,
+                               body=body)
+
 class UserAdmin(admin.ModelAdmin):
     list_display = ('id', 'phone', 'status')
     list_filter = ('status', )
@@ -62,6 +73,7 @@ class UserAdmin(admin.ModelAdmin):
                                args=(pk_value,),
                                current_app=self.admin_site.name)
             approve(pk_value)
+            _send_message_firebase(pk_value, 'Уважаемый пользователь, ', 'Мы рады сообщить вам, что ваш аккаунт был успешно обновлен. Теперь вы зарегистрированы в качестве водителя в нашем приложении.')
             return HttpResponseRedirect(redirect_url)
         if "_discard" in request.POST:
             # handle the action on your obj
