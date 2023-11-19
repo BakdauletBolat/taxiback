@@ -30,44 +30,21 @@ class CreateDriverOrderSubAction:
             from_city_id=data["from_city_id"], to_city_id=data["to_city_id"]
         ).first()
         user = User.objects.get(id=data["user_id"])
-        if access is not None:
-            
-            access_orders = AccessOrder.objects.filter(
-                access_id=access.id, user=user
-            ).order_by("can_access_date")
-
-            sum_coin = GetAvailableCoinsFromUser.run(user)
-
-            access_order = access_orders.last()
-
-            if access_order is None or access_order.can_access_date < today:
-                if sum_coin >= access.coin:
-                    try:
-                        CreateAccessOrder.run(
-                            serializer=AccessOrderSerializer(
-                                AccessOrder(
-                                    access_id=access.id,
-                                    user_id=user.id,
-                                    coin=access.coin,
-                                    can_access_date=today,
-                                )
-                            )
+        sum_coin = GetAvailableCoinsFromUser.run(user)
+        if sum_coin >= access.coin:
+            if access is not None:
+                CreateAccessOrder.run(
+                    serializer=AccessOrderSerializer(
+                        AccessOrder(
+                            access_id=access.id,
+                            user_id=user.id,
+                            coin=access.coin,
+                            can_access_date=today,
                         )
-                    except Exception as e:
-                        logging.exception(e)
-                else:
-                    raise NotEnoughBalanceException(
-                        errors_data={
-                            "to_city": access.to_city.name,
-                            "from_city": access.from_city.name,
-                            "coin": access.coin,
-                        }
                     )
-
-            return Order.objects.create(**data)
-        else:
-            default_settings = DefaultSettings.objects.all().first()
-            try:
+                )
+            else:
+                default_settings = DefaultSettings.objects.all().first()
                 CreateAccessOrder.run(
                     serializer=AccessOrderSerializer(
                         AccessOrder(
@@ -77,6 +54,13 @@ class CreateDriverOrderSubAction:
                         )
                     )
                 )
-            except Exception as e:
-                logging.exception(e)
-            return Order.objects.create(**data)
+        else:
+            raise NotEnoughBalanceException(
+                errors_data={
+                    "to_city": access.to_city.name,
+                    "from_city": access.from_city.name,
+                    "coin": access.coin,
+                }
+            )
+
+        return Order.objects.create(**data)

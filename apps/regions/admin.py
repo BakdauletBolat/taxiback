@@ -4,4 +4,8 @@ from apps.regions.models import City, Region
 
 # Register your models here.
 admin.site.register(Region)
-admin.site.register(City)
+
+
+class CityAdmin(admin.ModelAdmin):
+    search_fields = ('name', )
+admin.site.register(City, CityAdmin)

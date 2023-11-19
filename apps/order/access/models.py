@@ -4,12 +4,12 @@ from apps.users.models import User
 
 
 class Access(models.Model):
-    from_city = models.ForeignKey('regions.City', on_delete=models.CASCADE, related_name='access_from')
-    to_city = models.ForeignKey('regions.City', on_delete=models.CASCADE, related_name='access_to')
-    coin = models.IntegerField()
+    from_city = models.ForeignKey('regions.City',verbose_name='От города', on_delete=models.CASCADE, related_name='access_from')
+    to_city = models.ForeignKey('regions.City', verbose_name='До города', on_delete=models.CASCADE, related_name='access_to')
+    coin = models.IntegerField(verbose_name='Цена')
 
     def __str__(self):
-        return f"{self.from_city} - {self.to_city} - {self.coin}"
+        return f"Id: {self.id} {self.from_city} - {self.to_city} - {self.coin}"
 
     class Meta:
         verbose_name = 'Доступ'

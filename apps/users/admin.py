@@ -2,6 +2,7 @@ from django.contrib import admin
 from django import forms
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from apps.car.models import Car
 from apps.users.actions import approve, discard
 from apps.users.models import Payment, User, UserInfo
 from apps.users.usercode.models import UserCode
@@ -17,6 +18,8 @@ class UserInfoTabularInline(admin.StackedInline):
 
     
 
+class CarInline(admin.StackedInline):
+    model = Car
 
 
 class UserDocumentTabularInline(admin.StackedInline):
@@ -32,13 +35,13 @@ class UserDocumentTabularInline(admin.StackedInline):
         {
             'fields': [('preview_car_passport_front', 'preview_car_passport_back')]
         }),
-        'Машина',
+       ( 'Машина',
         {
             'fields': ['car']
-        }
+        })
         ]
     readonly_fields = ('preview_passport_photo_front', 'preview_passport_photo_back', 'preview_car_passport_front', 'preview_car_passport_back')
-    
+    inlines = [CarInline]
 
 
 class UserAdmin(admin.ModelAdmin):
