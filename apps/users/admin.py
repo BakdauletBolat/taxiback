@@ -56,7 +56,7 @@ def _send_message_firebase(user_id: int, title: str, body: str):
                                body=body)
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'phone', 'status')
+    list_display = ('id', 'phone', 'status', 'firebase_token')
     list_filter = ('status', )
     change_form_template = 'admin/change_form_user.html'
     fields = ('phone', 'status','type_user')
