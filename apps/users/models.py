@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from apps.users.managers import CustomUserManager
 from django.utils import timezone
+from django.utils.html import mark_safe
 
 
 class TypeUser(models.Model):
@@ -20,17 +21,17 @@ class User(AbstractUser):
     # if TYPE_CHECKING:
     #     user_info: UserInfo
     USER_STATUS_CHOICES = (
-        ('registered', 'registered'),
-        ('requested_to_driver', 'requested_to_driver'),
-        ('allowed_drive', 'allowed_drive'),
-        ('disallowed_drive', 'disallowed_drive')
+        ('registered', 'Зарегистрирован'),
+        ('requested_to_driver', 'Запрос от водителя'),
+        ('allowed_drive', 'Разрешено водить'),
+        ('disallowed_drive', 'Недопущено к управлению')
     )
     firebase_token = models.CharField('Токен Firebase', max_length=200, null=True, blank=True)
-    phone = models.CharField('Phone', unique=True, max_length=255)
-    type_user = models.ForeignKey(TypeUser, on_delete=models.CASCADE, null=True, blank=True)
-    is_driver = models.BooleanField(default=False)
-    date_joined = models.DateTimeField(default=timezone.now)
-    status = models.CharField('Status', max_length=255, null=True, blank=True, choices=USER_STATUS_CHOICES,
+    phone = models.CharField('Телефон пользователя', unique=True, max_length=255)
+    type_user = models.ForeignKey(TypeUser,verbose_name='Тип пользователя', on_delete=models.CASCADE, null=True, blank=True)
+    is_driver = models.BooleanField(default=False, verbose_name='Получил статус?')
+    date_joined = models.DateTimeField(default=timezone.now, verbose_name='Дата присоединения')
+    status = models.CharField('Статус', max_length=255, null=True, blank=True, choices=USER_STATUS_CHOICES,
                               default='registered')
     
     username = None
@@ -48,13 +49,25 @@ class User(AbstractUser):
 
 
 class UserInfo(models.Model):
-    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
-    email = models.EmailField('email address', unique=True, null=True, blank=True)
-    city = models.ForeignKey('regions.City', on_delete=models.CASCADE, related_name='users', null=True, blank=True)
-    birthday = models.DateTimeField(null=True, blank=True)
-    last_name = models.CharField('Last name', max_length=255, null=True, blank=True)
-    first_name = models.CharField('First name', max_length=255, null=True, blank=True)
+    avatar = models.ImageField(upload_to='avatars/', verbose_name='Аватар', null=True, blank=True)
+    email = models.EmailField(verbose_name='Почта', unique=True, null=True, blank=True)
+    city = models.ForeignKey('regions.City',verbose_name='Город', on_delete=models.CASCADE, related_name='users', null=True, blank=True)
+    birthday = models.DateTimeField(null=True,verbose_name='День рождение', blank=True)
+    last_name = models.CharField(verbose_name='Фамилия',max_length=255, null=True, blank=True)
+    first_name = models.CharField(verbose_name='Имя',max_length=255, null=True, blank=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_info')
+
+    def preview_image(self):
+        return mark_safe(f'<a href="{self.avatar.url}"><img src="{self.avatar.url}" width="150" height="150" /></a>')
+
+    preview_image.short_description = 'Аватар'
+
+    class Meta:
+        verbose_name = 'Информация о пользователе'
+        verbose_name_plural = 'Информация о пользователе'
+
+    def __str__(self) -> str:
+        return f"{self.first_name} {self.last_name}"
 
 
 class Payment(models.Model):

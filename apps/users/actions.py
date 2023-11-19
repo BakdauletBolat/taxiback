@@ -59,3 +59,18 @@ class FreedomPay:
         return pg_redirect_url.text # type: ignore
     
 
+
+
+def approve(id: int):
+    user = User.objects.get(id=id)
+    user.type_user_id = 1
+    user.is_driver = True
+    user.status = User.USER_STATUS_CHOICES[2][0]
+    user.save()
+
+def discard(id: int):
+    user = User.objects.get(id=id)
+    user.type_user_id = 2
+    user.is_driver = False
+    user.status = User.USER_STATUS_CHOICES[3][0]
+    user.save()
