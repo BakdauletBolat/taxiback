@@ -98,4 +98,4 @@ class GetUserOrderView(ListAPIView):
     pagination_class = StandardResultsSetPagination
 
     def get_queryset(self):
-        return self.queryset.filter(user=self.request.user).order_by('created_at')
+        return self.queryset.filter(user=self.request.user).order_by('-created_at')
