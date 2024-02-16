@@ -165,7 +165,7 @@ REST_FRAMEWORK = {
 
 exception_classes = []
 
-CSRF_TRUSTED_ORIGINS = ['http://185.146.3.54:9000']
+CSRF_TRUSTED_ORIGINS = ['http://185.146.3.54:9000', 'https://zakaz-taxi.kz']
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10242880
 
