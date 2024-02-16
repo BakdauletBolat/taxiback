@@ -1,63 +1,817 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taxi Za-Kaz</title>
-    <style>
-        body {
-            padding: 0px;
-            margin: 0px;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-        }
-        main {
-            padding: 0px 15px;
-            max-width: 560px;
-            margin: 0 auto;
-        }
-        .document-list {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .document-item {
-            background-color: aliceblue;
-            padding: 12px;
-            text-decoration: none;
-            color: black;
-            max-width: 430px;
-            width: 100%;
-            border-radius: 12px;
-            transition: 0.2s ease;
-        }
-        .document-item:hover {
-            background-color: rgb(207, 219, 229);
-        }
-    </style> 
-</head>
-<body>
-    <main>
-        <h1>Договоры</h1>
-    <div class="document-list">
-        <a href="{% static 'documents/dogovor.docx' %}" class="document-item">
-            <img src="{% static 'image/icons8-folder.svg' %}" />
-            <p>Договор (Freedom Pay)</p>
-        </a>
-        <a href="{% static 'documents/politic.docx' %}" class="document-item">
-            <img src="{% static 'image/icons8-folder.svg' %}" />
-            <p>Политика (Freedom Pay)</p>
-        </a>
-        <a href="{% static 'documents/offerts.docx' %}" class="document-item">
-            <img src="{% static 'image/icons8-folder.svg' %}" />
-            <p>Проект Оферты по оказанию услуг (Freedom Pay)</p>
-        </a>
-        <a href="{% static 'documents/payment.docx' %}" class="document-item">
-            <img src="{% static 'image/icons8-folder.svg' %}" />
-            <p>Описания процедуры оплаты (Freedom Pay)</p>
-        </a>
-    </div>
-    </main>
-    
-</body>
+
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="author" content="DSAThemes"/>	
+		<meta name="description" content="OLMO - Software, App, SaaS & Startup Landing Pages Pack"/>
+		<meta name="keywords" content="Responsive, HTML5, DSAThemes, One Page, Landing, Software, Mobile App, SaaS, Startup, Creative, Freelancers, Digital Product">	
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+				
+  		<!-- SITE TITLE -->
+		<title>Za-Kaz Taxi</title>
+							
+		<!-- FAVICON AND TOUCH ICONS -->
+		<link rel="icon" href="{% static 'image/logo.png' %}" type="image/x-icon">
+		<link rel="apple-touch-icon" href="image/logo.png">
+
+		<!-- GOOGLE FONTS -->
+		<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+		<!-- BOOTSTRAP CSS -->
+		<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+				
+		<!-- FONT ICONS -->
+		<link href="{% static 'css/flaticon.css' %}" rel="stylesheet">
+
+		<!-- PLUGINS STYLESHEET -->
+		<link href="{% static 'css/menu.css' %}" rel="stylesheet">	
+		<link id="effect" href="{% static 'css/dropdown-effects/fade-down.css' %}" media="all" rel="stylesheet">
+		<link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet">	
+		<link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet">
+		<link href="{% static 'css/owl.theme.default.min.css' %}" rel="stylesheet">
+
+		<!-- ON SCROLL ANIMATION -->
+		<link href="{% static 'css/animate.css' %}" rel="stylesheet">
+
+		<!-- TEMPLATE CSS -->
+		<link href="{% static 'css/style.css' %}" rel="stylesheet"> 
+		
+		<!-- RESPONSIVE CSS -->
+		<link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+
+	</head>
+
+
+
+	<body>
+
+
+
+
+		<!-- PRELOADER SPINNER
+		============================================= -->	
+		<div id="loading" class="violet-red-loading">
+			<div id="loading-center">
+				<div id="loading-center-absolute">
+					<div class="object" id="object_one"></div>
+					<div class="object" id="object_two"></div>
+					<div class="object" id="object_three"></div>
+					<div class="object" id="object_four"></div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<!-- PAGE CONTENT
+		============================================= -->	
+		<div id="page" class="page">
+
+
+
+
+			<!-- HEADER
+			============================================= -->
+			<header id="header" class="header tra-menu navbar-dark">
+				<div class="header-wrapper">
+
+
+					<!-- MOBILE HEADER -->
+				    <div class="wsmobileheader clearfix">	  	
+				    	<span class="smllogo"><img src="{% static 'image/logo.png' %}" alt="mobile-logo"/></span>
+				    	<a id="wsnavtoggle" class="wsanimated-arrow"><span></span></a>	
+				 	</div>
+
+
+				 	<!-- NAVIGATION MENU -->
+				  	<div class="wsmainfull menu clearfix">
+	    				<div class="wsmainwp clearfix">
+
+
+	    					<!-- HEADER LOGO -->
+	    					<div class="desktoplogo"><a href="#hero-12" class="logo-black"><img src="{% static 'image/logo.png' %}" alt="header-logo"></a></div>
+	    					<div class="desktoplogo"><a href="#hero-12" class="logo-white"><img src="{% static 'image/logo.png' %}" alt="header-losgo"></a></div>
+
+
+	    					<!-- MAIN MENU -->
+	      					<nav class="wsmenu clearfix">
+	        					<ul class="wsmenu-list nav-violet-red-hover">
+	        						
+						          	<!-- SIMPLE NAVIGATION LINK -->
+							    	<li class="nl-simple" aria-haspopup="true"><a href="#projects-2">Главная</a></li>
+
+
+							    	<!-- SIMPLE NAVIGATION LINK --> 
+							    	<li class="nl-simple" aria-haspopup="true"><a href="/documents/">Документы</a></li>
+
+								    <li class="nl-simple" aria-haspopup="true">
+								    	<a href="{% url 'form-view' %}" class="btn btn-violet-red tra-grey-hover last-link">Связаться</a>
+								    </li> 
+
+
+
+
+
+	        					</ul>
+	        				</nav>	<!-- END MAIN MENU -->
+
+
+	    				</div>
+	    			</div>	<!-- END NAVIGATION MENU -->
+
+
+				</div>     <!-- End header-wrapper -->
+			</header>	<!-- END HEADER -->
+
+
+
+
+			<!-- HERO-12
+			============================================= -->	
+			<section id="hero-12" class="rel hero-section division">
+				<div class="container">	
+
+
+					<!-- HERO TEXT -->
+					<div class="row">		
+						<div class="col-lg-8 offset-lg-1">
+							<div class="hero-12-txt">
+
+								<!-- Rounded Logo -->
+								<div class="hero-logo-rounded bg-grey mb-40">
+									<img class="img-fluid" src="{% static 'image/logo.png' %}" alt="hero-logo">
+									<span>Za-Kaz taxi</span>
+								</div>
+
+								<!-- Title -->
+								<h2 class="h2-xl">Эффективные услуги межгороднего такси по минимальной стоимости</h2>
+
+								<!-- Text -->
+								<p>Наши водители готовы предоставить комфортные и безопасные поездки между городами. 
+									Бронируйте у нас и наслаждайтесь высококачественным сервисом по доступным ценам. Ваше удобство - наш приоритет
+								</p>
+
+							</div>
+						</div>
+					</div>	<!-- HERO TEXT -->
+
+
+					<!-- HERO IMAGE -->	
+					<div class="row">
+						<div class="col">
+							<div class="hero-12-img video-preview">	
+
+								<!-- Play Icon --> 
+								<a class="video-popup1" href="https://www.youtube.com/embed/SZEflIVnhH8">							
+									<div class="video-btn video-btn-xl bg-violet-red ico-90">	
+										<div class="video-block-wrapper"><span class="flaticon-play-button"></span></div>
+									</div>
+								</a>
+
+								<!-- Preview Image --> 
+			 					<img class="img-fluid" src="{% static 'image/check.jpeg' %}" alt="content-image">
+
+					 		</div> 
+						</div>																
+					</div>	<!-- END HERO IMAGE -->	
+
+
+				</div>	   <!-- End container --> 		
+			</section>	<!-- END HERO-12 -->
+
+
+
+
+			<!-- FEATURES-4
+			============================================= -->
+			<section id="features-4" class="bg-whitesmoke wide-60 features-section division">
+				<div class="container">
+
+
+					<!-- FEATURES-4 WRAPPER -->
+					<div class="fbox-4-wrapper fbox-4-wide">
+						<div class="row row-cols-1 row-cols-md-2">
+
+
+							<!-- FEATURE BOX #1 -->
+		 					<div class="col">
+		 						<div class="fbox-4 pr-25 mb-40 wow fadeInUp">
+
+		 							<!-- Icon -->
+		 							<div class="fbox-ico">
+		 								<div class="fbox-ico-center ico-60">
+											<span class="flaticon-dashboard"></span>
+										</div>
+									</div>
+
+									<!-- Text -->
+									<div class="fbox-txt">
+		
+										<!-- Title -->
+										<h5 class="h5-md">Дружественный интерфейс</h5>
+											
+										<!-- Text -->
+										<p class="p-lg">Всегда легкий доступ и удобное взаимодействие. Наша платформа обеспечивает простоту использования для всех пользователей, 
+											делая заказ такси межгородом легким и приятным.
+										</p>
+
+									</div>
+
+		 						</div>
+		 					</div>	
+
+
+		 					<!-- FEATURE BOX #2 -->
+		 					<div class="col">
+		 						<div class="fbox-4 pl-25 mb-40 wow fadeInUp">
+
+		 							<!-- Icon -->
+		 							<div class="fbox-ico">
+		 								<div class="fbox-ico-center ico-60">
+											<span class="flaticon-web-browser"></span>
+										</div>
+									</div>
+
+									<!-- Text -->
+									<div class="fbox-txt">
+		
+										<!-- Title -->
+										<h5 class="h5-md">Мультиплатформенность</h5>
+											
+										<!-- Text -->
+										<p class="p-lg">Поддержка на всех устройствах для вашего удобства. Бронируйте поездки через наше приложение на любом устройстве, получая удобство использования на всех платформах.
+										</p>
+
+									</div>
+
+		 						</div>
+		 					</div>	
+
+
+		 					<!-- FEATURE BOX #3 -->
+		 					<div class="col">
+		 						<div class="fbox-4 pr-25 mb-40 wow fadeInUp">
+
+		 							<!-- Icon -->
+		 							<div class="fbox-ico">
+		 								<div class="fbox-ico-center ico-60">
+											<span class="flaticon-tool"></span>
+										</div>
+									</div>
+
+									<!-- Text -->
+									<div class="fbox-txt">
+		
+										<!-- Title -->
+										<h5 class="h5-md">Мощные возможности</h5>
+											
+										<!-- Text -->
+										<p class="p-lg">Наше приложение предоставляет широкий выбор опций для настройки вашего заказа межгороднего такси. Выбирайте удобные услуги и настраивайте поездки под свои потребности.
+										</p>
+
+									</div>
+
+		 						</div>
+		 					</div>	
+
+
+		 					<!-- FEATURE BOX #4 -->
+		 					<div class="col">
+		 						<div class="fbox-4 pl-25 mb-40 wow fadeInUp">
+
+		 							<!-- Icon -->
+		 							<div class="fbox-ico">
+		 								<div class="fbox-ico-center ico-60">
+											<span class="flaticon-algorithm"></span>
+										</div>
+									</div>
+
+									<!-- Text -->
+									<div class="fbox-txt">
+		
+										<!-- Title -->
+										<h5 class="h5-md">Исключительная гибкость</h5>
+											
+										<!-- Text -->
+										<p class="p-lg">Мы предоставляем максимальную гибкость в выборе маршрутов, услуг и времени поездки. Приложение адаптируется под ваши предпочтения, чтобы каждая поездка была именно такой, как вы хотите
+										</p>
+
+									</div>
+
+		 						</div>
+		 					</div>	
+
+
+		 					<!-- FEATURE BOX #5 -->
+		 					<div class="col">
+		 						<div class="fbox-4 pr-25 mb-40 wow fadeInUp">
+
+		 							<!-- Icon -->
+		 							<div class="fbox-ico">
+		 								<div class="fbox-ico-center ico-60">
+											<span class="flaticon-increase-1"></span>
+										</div>
+									</div>
+
+									<!-- Text -->
+									<div class="fbox-txt">
+		
+										<!-- Title -->
+										<h5 class="h5-md">Высокая производительность</h5>
+											
+										<!-- Text -->
+										<p class="p-lg">Быстрая и эффективная работа нашего приложения гарантирует мгновенную обработку ваших заказов. Экономьте время и доверьтесь нашей высокой производительности
+										</p>
+
+									</div>
+
+		 						</div>
+		 					</div>	
+
+
+		 					<!-- FEATURE BOX #6 -->
+		 					<div class="col">
+		 						<div class="fbox-4 pl-25 mb-40 wow fadeInUp">
+
+		 							<!-- Icon -->
+		 							<div class="fbox-ico">
+		 								<div class="fbox-ico-center ico-60">
+											<span class="flaticon-layers"></span>
+										</div>
+									</div>
+
+									<!-- Text -->
+									<div class="fbox-txt">
+		
+										<!-- Title -->
+										<h5 class="h5-md">Расширения и дополнения</h5>
+											
+										<!-- Text -->
+										<p class="p-lg">Дополнительные возможности и функции для расширения вашего опыта путешествия. Выбирайте из различных дополнений, чтобы сделать вашу поездку максимально комфортной и удобной.
+										</p>
+
+									</div>
+
+		 						</div>
+		 					</div>	
+
+
+		 				</div>
+					</div>    <!-- END FEATURES-4 WRAPPER -->
+
+
+				</div>     <!-- End container --> 	
+			</section>	<!-- END FEATURES-4 -->
+
+
+			<!-- CONTENT-1
+			============================================= -->
+			<section id="content-1" class="content-1 bg-04 wide-60 content-section division">
+				<div class="container">
+					<div class="row d-flex align-items-center">
+
+
+						<!-- TEXT BLOCK -->	
+						<div class="col-md-7 col-lg-6 order-last order-md-2">
+							<div class="txt-block left-column white-color wow fadeInRight">
+
+								<!-- Section ID -->	
+					 			<span class="section-id rounded-id bg-tra-white white-color txt-upcase">
+					 				Za-Kaz taxi
+					 			</span>
+
+								<!-- Title -->	
+								<h2 class="h2-xs">Работайте умнее с мощными функциональными возможностями.</h2>
+
+								<!-- List -->	
+								<ul class="simple-list">
+
+									<li class="list-item">
+										<p class="p-lg">Безопасные и Комфортные Межгородские Поездки
+										</p>
+									</li>
+
+									<li class="list-item">
+										<p class="p-lg">Эффективное Такси для Путешествий между Городами</p>
+									</li>
+
+									<li class="list-item">
+										<p class="p-lg">Плавные Переезды: Межгородское Такси с Подчеркнутым Комфортом
+										</p>
+									</li>
+
+								</ul>							
+
+							</div>
+						</div>	<!-- END TEXT BLOCK -->	
+
+
+						<!-- IMAGE BLOCK -->
+						<div class="col-md-5 col-lg-6 order-first order-md-2">
+							<div class="rel img-block right-column video-preview wow fadeInLeft">
+
+								<!-- Play Icon --> 
+								<a class="video-popup1" href="https://www.youtube.com/embed/SZEflIVnhH8">				
+									<div class="video-btn video-btn-xl bg-violet-red ico-90">	
+										<div class="video-block-wrapper"><span class="flaticon-play-button"></span></div>
+									</div>
+								</a>
+
+							
+
+							</div>
+						</div>
+
+
+					</div>	   <!-- End row -->
+				</div>	   <!-- End container -->
+			</section>	<!-- END CONTENT-1 -->
+
+
+
+
+			<!-- FEATURES-8
+			============================================= -->
+			<section id="features-8" class="wide-60 features-section division">
+				<div class="container">
+
+
+					<!-- SECTION TITLE -->	
+					<div class="row justify-content-center">	
+						<div class="col-lg-10 col-xl-8">
+							<div class="section-title title-01 mb-70">		
+
+								<!-- Title -->	
+								<h2 class="h2-md">Приготовьтесь к удивлению!</h2>	
+
+								<!-- Text -->	
+								<p class="p-xl">Мы приглашаем вас на увлекательное путешествие, полное неожиданных впечатлений и приятных сюрпризов. Наше межгородское такси готово удивить вас своей надежностью, комфортом и инновационными решениями. Подготовьтесь к неповторимому опыту путешествий, где каждая поездка станет приятным открытием. С нами каждое путешествие — это удовольствие. Готовы ли вы к удивительным приключениям? Погнали!
+								</p>
+									
+							</div>	
+						</div>
+					</div>
+
+
+					<!-- FEATURES-8 WRAPPER -->	
+			 		<div class="fbox-8-wrapper text-center">
+			 			<div class="row row-cols-1 row-cols-md-3">
+
+
+		 					<!-- FEATURE BOX #1 -->
+		 					<div class="col">
+		 						<div class="fbox-8 mb-40 wow fadeInUp">
+
+									<!-- Image -->
+									<div class="fbox-img bg-whitesmoke-gradient">
+										<img class="img-fluid" src="{% static 'images/img-21.png' %}" alt="feature-icon" />
+									</div>
+
+									<!-- Title -->
+									<h5 class="h5-md">Дружественный интерфейс</h5>
+											
+									<!-- Text -->
+									<p class="p-lg">Легкий в использовании интерфейс для приятного заказа такси.
+									</p>
+
+		 						</div>
+		 					</div>
+
+
+		 					<!-- FEATURE BOX #2 -->
+		 					<div class="col">
+		 						<div class="fbox-8 mb-40 wow fadeInUp">
+
+									<!-- Image -->
+									<div class="fbox-img bg-whitesmoke-gradient">
+										<img class="img-fluid" src="{% static 'images/img-22.png' %}" alt="feature-icon" />
+									</div>
+
+									<!-- Title -->
+									<h5 class="h5-md">Очень гибкий</h5>
+											
+									<!-- Text -->
+									<p class="p-lg">Создавайте персонализированные поездки под свои потребности.
+									</p>
+
+		 						</div>
+		 					</div>
+
+
+		 					<!-- FEATURE BOX #3 -->
+		 					<div class="col">
+		 						<div class="fbox-8 mb-40 wow fadeInUp">
+
+									<!-- Image -->
+									<div class="fbox-img bg-whitesmoke-gradient">
+										<img class="img-fluid" src="{% static 'images/img-24.png' %}" alt="feature-icon" />
+									</div>
+
+									<!-- Title -->
+									<h5 class="h5-md">Расширения и дополнения</h5>
+											
+									<!-- Text -->
+									<p class="p-lg">Наслаждайтесь дополнительными возможностями и улучшениями для более функционального опыта.
+									</p>
+
+		 						</div>
+		 					</div>	
+
+
+				 		</div>  <!-- End row -->	
+				 	</div>	<!-- END FEATURES-8 WRAPPER -->	
+
+
+				</div>	   <!-- End container -->		
+			</section>	<!-- END FEATURES-8 -->	
+
+
+
+
+			<!-- CONTENT-7
+			============================================= -->
+			<section id="content-7" class="content-7 bg-whitesmoke-gradient wide-60 content-section division">
+				<div class="container">
+					<div class="row d-flex align-items-center">
+
+								
+						<!-- TEXT BLOCK -->		
+						<div class="col-md-6 order-last order-md-2">
+							<div class="txt-block left-column wow fadeInLeft">
+
+								<!-- Section ID -->	
+					 			<span class="section-id rounded-id bg-tra-purple purple-color txt-upcase">
+					 				Быстро
+					 			</span>		
+
+								<!-- Title -->	
+								<h2 class="h2-xs">Скачайте наше приложение для максимального комфорта в поездках! </h2>
+
+								<!-- List -->	
+								<ul class="simple-list">
+
+									<li class="list-item">
+										<p class="p-lg">Оптимизировано для Android и iOS. Наслаждайтесь беззаботными межгородскими переездами с удобным и надежным приложением. Скачивайте прямо сейчас и начните путешествовать с комфортом!
+										</p>
+									</li>
+
+								</ul>
+
+								<!-- Tools List -->
+								<div class="tools-list mt-30">
+
+									<!-- Text -->
+									<h6 class="h6-lg">Доступно</h6>
+
+									<!-- Icons -->
+									<a href="https://apps.apple.com/kz/app/za-kaz-%D1%82%D0%B0%D0%BA%D1%81%D0%B8/id1666450805"><img width="100px" src="{% static 'image/image.png' %}"/></a>
+									<a href="https://play.google.com/store/apps/details?id=com.baqdauled.taxizakaz&pcampaignid=web_share"><img width="100px" src="{% static 'image/getItOnGooglePlay.png' %}"/></a>
+
+
+								</div>
+
+							</div>	
+						</div>	<!-- END TEXT BLOCK -->		
+
+
+						<!-- IMAGE BLOCK -->	
+						<div class="col-md-6 order-first order-md-2">
+							<div class="content-7-img wow fadeInRight">
+								<img style="height: 800px;" class="img-fluid" src="{% static 'image/detail.webp' %}" alt="content-image">
+							</div>	
+						</div>
+
+
+					</div>	  <!-- End row -->
+				</div>	   <!-- End container -->
+			</section>	<!-- END CONTENT-7 -->
+
+
+
+
+
+
+
+
+
+
+			<!-- TESTIMONIALS-1
+			============================================= -->
+			<section id="reviews-1" class="bg-whitesmoke-gradient wide-100 reviews-section division">
+				<div class="container">
+
+
+					<!-- SECTION TITLE -->	
+					<div class="row justify-content-center">	
+						<div class="col-lg-10 col-xl-8">
+							<div class="section-title title-01 mb-70">		
+
+								<!-- Title -->	
+								<h2 class="h2-md">Отзывы от наших клиентов</h2>	
+
+								<!-- Text -->	
+								<!-- <p class="p-xl">Aliquam a augue suscipit, luctus neque purus ipsum neque dolor primis a libero
+								   tempus, blandit and cursus varius and magnis sapien
+								</p> -->
+									
+							</div>	
+						</div>
+					</div>
+
+
+					<!-- TESTIMONIALS CONTENT -->
+					<div class="row">
+						<div class="col">					
+							<div class="owl-carousel owl-theme reviews-1-wrapper">
+
+								{% for feedback in feedbacks %}
+								<!-- TESTIMONIAL #1 -->
+								<div class="review-1">
+
+									<!-- Quote Icon -->
+		 							<div class="review-1-ico ico-25">
+										<span class="flaticon-left-quote"></span>
+									</div>
+
+									<!-- Text -->
+									<div class="review-1-txt">
+
+										<!-- Text -->
+										<p class="p-lg">{{feedback.text}}			   
+										</p>
+
+										<!-- Testimonial Author -->
+										<div class="author-data clearfix">
+
+											
+														
+											<!-- Testimonial Author -->
+											<div class="review-author">
+
+												<h6 class="h6-xl">{{feedback.email}}</h6>
+
+												<!-- Rating -->
+												<div class="review-rating ico-15 yellow-color">
+													<span class="flaticon-star-1"></span>
+													<span class="flaticon-star-1"></span>
+													<span class="flaticon-star-1"></span>
+													<span class="flaticon-star-1"></span>
+													<span class="flaticon-star-half-empty"></span>	
+												</div>
+
+											</div>	
+
+										</div>	<!-- End Testimonial Author -->
+
+									</div>	<!-- End Text -->
+
+								</div>	<!-- END TESTIMONIAL #1 -->
+
+								{% endfor %}
+							
+							</div>
+						</div>									
+					</div>	<!-- END TESTIMONIALS CONTENT --> 
+
+
+				</div>     <!-- End container -->
+			</section>	<!-- END TESTIMONIALS-1 -->
+
+
+
+			<!-- DIVIDER LINE -->
+			<hr class="divider">
+
+
+			<!-- FOOTER-4
+			============================================= -->
+			<footer id="footer-4" class="bg-snow footer division">
+				<div class="container">
+
+
+					<!-- FOOTER CONTENT -->
+					<div class="row">	
+
+
+						<!-- FOOTER INFO -->
+						<div class="col-lg-3">
+							<div class="footer-info mb-40">
+								<img class="footer-logo" src="{% static 'image/logo.png' %}" alt="footer-logo">
+							</div>	
+						</div>	
+
+
+
+
+						<!-- FOOTER LINKS -->
+						<div class="col-sm-6 col-md-3 col-lg-3 col-xl-2">
+							<div class="footer-links mb-40">
+												
+								<!-- Title -->
+								<h6 class="h6-xl">О нас</h6>
+
+								<a class="h6-xl" href="{% url 'form-view' %}">Связаться</a>
+
+								<!-- Social Links -->	
+								<ul class="footer-socials text-secondary ico-25 text-center clearfix">		
+									<li><a href="#"><span class="flaticon-facebook"></span></a></li>
+									<li><a href="#"><span class="flaticon-whatsapp"></span></a></li>
+									<li><a href="#"><span class="flaticon-youtube"></span></a></li>
+								</ul>
+
+							</div>	
+						</div>	
+
+
+					</div>	<!-- END FOOTER CONTENT -->
+
+
+					<hr>
+
+
+					<!-- BOTTOM FOOTER -->
+					<div class="bottom-footer">
+						<div class="row row-cols-1 row-cols-md-2 d-flex align-items-center">
+
+
+							<!-- FOOTER COPYRIGHT -->
+							<div class="col">
+								<div class="footer-copyright">
+									<p>&copy; 2023 - 2024 Za-Kaz. Все Права Защищены</p>
+								</div>
+							</div>
+
+
+							<!-- BOTTOM FOOTER LINKS -->
+							<div class="col">
+								<ul class="bottom-footer-list text-secondary text-end">
+									<li class="first-li"><p><a href="/documents">Документы</a></p></li>
+								</ul>
+							</div>
+
+
+						</div>  <!-- End row -->
+					</div>	<!-- BOTTOM FOOTER -->
+
+
+				</div>
+			</footer>	<!-- FOOTER-4 -->
+
+
+
+
+		</div>	<!-- END PAGE CONTENT -->	
+			
+
+
+
+		<!-- EXTERNAL SCRIPTS
+		============================================= -->	
+		<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>	
+		<script src="{% static 'js/modernizr.custom.js' %}"></script>
+		<script src="{% static 'js/jquery.easing.js' %}"></script>
+		<script src="{% static 'js/jquery.appear.js' %}"></script>
+		<script src="{% static 'js/jquery.scrollto.js' %}"></script>	
+		<script src="{% static 'js/menu.js' %}"></script>
+		<script src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
+		<script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+		<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+		<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+		<script src="{% static 'js/quick-form.js' %}"></script>	
+		<script src="{% static 'js/request-form.js' %}"></script>	
+		<script src="{% static 'js/jquery.validate.min.js' %}"></script>
+		<script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>	
+		<script src="{% static 'js/wow.js' %}"></script>
+				
+		<!-- Custom Script -->		
+		<script src="{% static 'js/custom.js' %}"></script>
+
+		<!-- Google Analytics: Change UA-XXXXX-X to be your site's ID. Go to http://www.google.com/analytics/ for more information. -->															
+		<!--
+		<script>
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-XXXXX-X']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		</script>
+		-->
+
+
+
+	</body>
+
+
+
 </html>

@@ -2,11 +2,12 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
-from taxiback.views import render_privacy_view, render_index
+from taxiback.views import render_privacy_view, render_index, render_documents_view
 
 urlpatterns = [
     path('', render_index),
     path('admin/', admin.site.urls),
+    path('documents/', render_documents_view),
     path('privacy/', render_privacy_view),
     path('feedback/', include('form.urls')),
     path('api/', include([

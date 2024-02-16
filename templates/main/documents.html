@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taxi Za-Kaz</title>
+    <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+        main {
+            padding: 0px 15px;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+        .document-list {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .document-item {
+            background-color: aliceblue;
+            padding: 12px;
+            text-decoration: none;
+            color: black;
+            max-width: 430px;
+            width: 100%;
+            border-radius: 12px;
+            transition: 0.2s ease;
+        }
+        .document-item:hover {
+            background-color: rgb(207, 219, 229);
+        }
+    </style> 
+</head>
+<body>
+    <main>
+        <h1>Договоры</h1>
+    <div class="document-list">
+        <a href="{% static 'documents/dogovor.docx' %}" class="document-item">
+            <img src="{% static 'image/icons8-folder.svg' %}" />
+            <p>Договор (Freedom Pay)</p>
+        </a>
+        <a href="{% static 'documents/politic.docx' %}" class="document-item">
+            <img src="{% static 'image/icons8-folder.svg' %}" />
+            <p>Политика (Freedom Pay)</p>
+        </a>
+        <a href="{% static 'documents/offerts.docx' %}" class="document-item">
+            <img src="{% static 'image/icons8-folder.svg' %}" />
+            <p>Проект Оферты по оказанию услуг (Freedom Pay)</p>
+        </a>
+        <a href="{% static 'documents/payment.docx' %}" class="document-item">
+            <img src="{% static 'image/icons8-folder.svg' %}" />
+            <p>Описания процедуры оплаты (Freedom Pay)</p>
+        </a>
+    </div>
+    </main>
+    
+</body>
+</html>

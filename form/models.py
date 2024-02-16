@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 class FeedBack(models.Model):
-    image = models.ImageField(upload_to='form-images/')
+    image = models.ImageField(upload_to='form-images/', null=True, blank=True)
     email = models.EmailField()
     text = models.TextField(null=True, blank=True)
 
